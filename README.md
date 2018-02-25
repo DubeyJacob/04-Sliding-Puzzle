@@ -1,3 +1,8 @@
+# (not) Finished assignment
+This is supposed to be a sliding puzzle game, but unfortunately due to a bug that I cannot identify in the
+part of the code that randomizes the board, it does not function properly. What happens now is that the 
+square that is clicked on will turn invisible, and sometimes reappear depending on the probablitity set.
+I am currently unsure as to why this is happening.
 # 04-image-puzzle
 
 This is the fourth programming assignment for ILS-Z399: a sliding-puzzle game. The requirements for this assignment are as follows:

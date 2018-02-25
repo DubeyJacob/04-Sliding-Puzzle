@@ -37,3 +37,16 @@ class Square:
 			(fx,fy) = (x + (w - fwidth)/2,y + (h - fheight)/2)
 			screen.blit(f,(fx,fy))
 		return draw
+	def square_position(self,position):
+		(mx,my) = position #not position of square
+		(w,h) = self.dim
+		(i,j) = self.position
+		x1 = i * w
+		y1 = j * h
+		x2 = (i + 1) * w
+		y2 = (j + 1) * h
+		if mx >= x1 and mx <= x2 and my >= y1 and my <= y2:
+			return True
+		else:
+			return False
+

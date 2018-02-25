@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import sys, pygame
+import sys, pygame, random
 from square import Square
 assert sys.version_info >= (3,4), 'This script requires at least Python 3.4' 
 
@@ -24,14 +24,27 @@ def main():
 	clock = pygame.time.Clock()
 
 	puzzle = []
-	(w,h) = (screen_size[0]/columns,screen_size[1]/rows)
+	(w,h) = (screen_size[0]/columns, screen_size[1]/rows)
 	for i in range(rows):
 		for j in range(columns):
 			position = j*rows + i
 			color = colors[position]
-			puzzle.append(Square(i,j,str(position+1),w,h,color,font))
-	
+			puzzle.append(Square(i,j,str(position+1),w,h,color,font)) #append adds to the end of the list
+	puzzle[15].visible = False
+	special_square = puzzle[15]
+
+	for i in range(1000):
+		for p in puzzle:
+			q = random.randrange(100)
+			p.check_proximity(special_square.position)
+			if q < 20:
+				temp = p.position
+				special_square.position = p.position
+				p.position = temp
+
+
 	while True:
+
 		clock.tick(FPS)
 
 		screen.fill(black)
@@ -41,11 +54,16 @@ def main():
 				sys.exit(0)
 			if event.type == pygame.MOUSEBUTTONUP:
 				pos = pygame.mouse.get_pos()
+				for p in puzzle:
+					if p.square_position(pos):
+						if p.check_proximity(special_square.position) == True:
+							temp = special_square.position
+							special_square.position = p.position
+							p.position = temp
 
 		for p in puzzle:
 			p.draw_square(pygame.draw,screen)		
 
-		
 		pygame.display.flip()
 
 if __name__ == '__main__':
